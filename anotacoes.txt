@@ -1,0 +1,23 @@
+//Anotações
+
+endpoints/ Resource - recurso usado no momento da requisição
+
+Request -  são as requisições
+
+Response - Resposta obtida
+
+body - a estrutura da requisição a ser enviada 
+
+payload - As informações a serem enviadas dentro do body
+
+Contrato - Regras de negócio, regras de validação na API
+
+Schema - Padrão utilizados para definir os contratos
+
+Headers - Cabeçalhos, informações que são enviadas e recebidas durante a conversa entre client e servidor
+    Token de autenticação geralmente é enviado via headers
+
+Testes de healthcheck - Verificar os status da aplicação
+Testes de contrato - Ter uma forma de mudança dos contrados das APIs 
+Testes Funcionais - Específicos e validação das regras de negócio
+Testes de fluxo - Testes que envolvem mais de um endpoints

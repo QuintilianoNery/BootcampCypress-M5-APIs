@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import req from '../../support/api/requests'
+import assertiosn from '../../support/api/assertions'
 
 context('Ping', () => {
     it('GET Healthcheck', () => {
@@ -8,7 +9,9 @@ context('Ping', () => {
         //Validação Healthcheck para status 201 da API
         //request
         req.getPing()
-        //assertions
-        .its('status').should('eq', 201)
+            //assertions
+            .then(getPingResponse => {
+                assertiosn.shouldHaveStatus(getPingResponse, 201)
+            })
     });
 });

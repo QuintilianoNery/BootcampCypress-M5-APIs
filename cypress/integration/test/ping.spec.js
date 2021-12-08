@@ -1,14 +1,14 @@
 /// <reference types="cypress" />
 
-const { method } = require("bluebird");
+import req from '../../support/api/requests'
 
 context('Ping', () => {
     it('GET Healthcheck', () => {
         //GET http://treinamento-api.herokuapp.com/ping
         //Validação Healthcheck para status 201 da API
-        cy.request({
-            method: 'GET',
-            url: 'ping'
-        }).its('status').should('eq', 201)
+        //request
+        req.getPing()
+        //assertions
+        .its('status').should('eq', 201)
     });
 });

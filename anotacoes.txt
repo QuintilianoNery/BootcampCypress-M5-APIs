@@ -21,3 +21,14 @@ Testes de healthcheck - Verificar os status da aplicação
 Testes de contrato - Ter uma forma de mudança dos contrados das APIs 
 Testes Funcionais - Específicos e validação das regras de negócio
 Testes de fluxo - Testes que envolvem mais de um endpoints
+
+
+Get sem ID - Retorna uma lista 
+
+Get com ID - Retorna um valor específico
+
+PUT  usado para criar registros ou editar, mas geralmente para editar
+
+Post - para incluir ou fazer qualquer coisa, mas por convenção é incluir e o PUT para alteração
+
+Formam um crud o get, delet, post e PUT

@@ -1,22 +1,22 @@
 {
-  "name": "apis-bootcampcypress-m5",
+  "name": "BootcampCypress-M5-APIs",
   "version": "1.0.0",
-  "description": "<h1 align=\"center\">Projeto: APIs-BootcampCypress-M5 </h1>",
+  "description": "<h1 align=\"center\">Projeto: BootcampCypress-M5-APIs </h1>",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/QuintilianoNery/APIs-BootcampCypress-M5.git"
+    "url": "git+https://github.com/QuintilianoNery/BootcampCypress-M5-APIs.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/QuintilianoNery/APIs-BootcampCypress-M5/issues"
+    "url": "https://github.com/QuintilianoNery/BootcampCypress-M5-APIs/issues"
   },
-  "homepage": "https://github.com/QuintilianoNery/APIs-BootcampCypress-M5#readme",
+  "homepage": "https://github.com/QuintilianoNery/BootcampCypress-M5-APIs#readme",
   "dependencies": {
     "cypress": "^5.3.0"
   }

@@ -6,22 +6,27 @@ Request -  são as requisições
 
 Response - Resposta obtida
 
-body - a estrutura da requisição a ser enviada 
 
 payload - As informações a serem enviadas dentro do body
 
-Contrato - Regras de negócio, regras de validação na API
 
 Schema - Padrão utilizados para definir os contratos
 
-Headers - Cabeçalhos, informações que são enviadas e recebidas durante a conversa entre client e servidor
-    Token de autenticação geralmente é enviado via headers
 
 Testes de healthcheck - Verificar os status da aplicação
 Testes de contrato - Ter uma forma de mudança dos contrados das APIs 
 Testes Funcionais - Específicos e validação das regras de negócio
 Testes de fluxo - Testes que envolvem mais de um endpoints
 
+------
+
+- Contrato - Regras de negócio, regras de validação na API
+
+- body - a estrutura da requisição a ser enviada 
+
+- Headers - Cabeçalhos, informações que são enviadas e recebidas durante a conversa entre client e servidor
+    Token de autenticação geralmente é enviado via headers
+-----------------
 
 Get sem ID - Retorna uma lista 
 
@@ -32,3 +37,16 @@ PUT  usado para criar registros ou editar, mas geralmente para editar
 Post - para incluir ou fazer qualquer coisa, mas por convenção é incluir e o PUT para alteração
 
 Formam um crud o get, delet, post e PUT
+
+
+
+join
+
+
+inner join - Faz um join entre duas tabelas, onde o resultado é um registro
+left join - Faz um join entre duas tabelas, onde o resultado é um registro da tabela A
+right join - Faz um join entre duas tabelas, onde o resultado é um registro da tabela B
+outer join - Faz um join entre duas tabelas, onde o resultado é um registro da tabela A ou B
+left external join - Faz um join entre duas tabelas, onde o resultado é um registro da tabela A e que não estão em B
+right external join - Faz um join entre duas tabelas, onde o resultado é um registro da tabela B e que não estão em A
+outer external join - Faz um join entre duas tabelas, onde o resultado é um registro da tabela A ou B e que não na interceção de A e B

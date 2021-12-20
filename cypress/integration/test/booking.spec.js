@@ -47,6 +47,7 @@ context('Validação do endpoint - Sem Abstração de dados', () => {
                             checkin: spok.string,
                             checkout: spok.string
                         },
+                        additionalneeds: spok.string
                     })
                 )
         })

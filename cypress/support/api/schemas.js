@@ -10,7 +10,8 @@ class Schemas {
             bookingdates: {
                 checkin: spok.string,
                 checkout: spok.string
-            }
+            },
+            additionalneeds: spok.string
         })
     }
 }

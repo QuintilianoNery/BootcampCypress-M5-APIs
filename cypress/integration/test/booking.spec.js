@@ -21,7 +21,10 @@ context('Validação do endpoint - Com abstração de dados', () => {
     it('POST - Criar uma reserva com sucesso', () => {
         req.postBooking()
             .then(postBookingResponse => {
-                expect(postBookingResponse.status).to.eq(200)
+                assertions.shouldHaveStatus(postBookingResponse, 200)
+                expect(postBookingResponse.body.bookingid).to.not.be.null;
+                expect(postBookingResponse.body.bookingid).to.not.be.eq(0);
+                cy.log(postBookingResponse.body.bookingid)
             })
     })
 });
@@ -77,6 +80,8 @@ context('Validação do endpoint - Sem Abstração de dados', () => {
             }
         }).then(postBookingResponse => {
             expect(postBookingResponse.status).to.eq(200)
+            expect(postBookingResponse.body.bookingid).to.not.be.null;
+            cy.log(postBookingResponse.body.bookingid)
         })
     })
 });

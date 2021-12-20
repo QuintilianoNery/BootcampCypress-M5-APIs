@@ -1,6 +1,7 @@
 class Assertions {
     shouldHaveStatus(response, status) {
         expect(response.status).to.equal(status)
+        
     }
 
     validateContractOf(response, schema) {

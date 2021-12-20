@@ -25,6 +25,11 @@ context('Validação do endpoint - Com abstração de dados', () => {
                 expect(postBookingResponse.body.bookingid).to.not.be.null;
                 expect(postBookingResponse.body.bookingid).to.not.be.eq(0);
                 cy.log(postBookingResponse.body.bookingid)
+                expect(postBookingResponse.headers).to.include({
+                    server: 'Cowboy',
+                    connection: 'keep-alive',
+                    via: '1.1 vegur'
+                })
             })
     })
 });

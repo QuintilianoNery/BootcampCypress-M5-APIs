@@ -7,16 +7,23 @@ import assertions from '../../support/api/assertions'
 
 context('Validação do endpoint - Com abstração de dados', () => {
     it('validar contrato do GET Booking', () => {
-        
+
         req.getBooking()
-        .then(getBookingResponse => {
-            
-        cy.log(getBookingResponse.status)
-        assertions
-        .validateContractOf(
-            getBookingResponse,schemas.getBookingSchema())
-        })
+            .then(getBookingResponse => {
+
+                cy.log(getBookingResponse.status)
+                assertions
+                    .validateContractOf(
+                        getBookingResponse, schemas.getBookingSchema())
+            })
     });
+
+    it('POST - Criar uma reserva com sucesso', () => {
+        req.postBooking()
+            .then(postBookingResponse => {
+                expect(postBookingResponse.status).to.eq(200)
+            })
+    })
 });
 
 
@@ -32,7 +39,7 @@ context('Validação do endpoint - Sem Abstração de dados', () => {
             url: 'booking/1'
             //getBookingResponse é um objeto de resposta, que retorna os valores da requisição
         }).then(getBookingResponse => {
-            
+
             cy.log(getBookingResponse.status)
             //Extrair o conteúdo do(body) retorno GET
             cy.wrap(getBookingResponse.body)
@@ -46,10 +53,30 @@ context('Validação do endpoint - Sem Abstração de dados', () => {
                         bookingdates: {
                             checkin: spok.string,
                             checkout: spok.string
-                        },
-                        additionalneeds: spok.string
+                        }
                     })
                 )
         })
     });
+
+    it('POST - Criar uma reserva com sucesso', () => {
+        cy.request({
+            method: 'POST',
+            url: 'booking',
+            body:
+            {
+                "firstname": "Quin",
+                "lastname": "defanini",
+                "totalprice": 111,
+                "depositpaid": true,
+                "bookingdates": {
+                    "checkin": "2020-01-01",
+                    "checkout": "2020-01-02"
+                },
+                "additionalneeds": "Breakfast"
+            }
+        }).then(postBookingResponse => {
+            expect(postBookingResponse.status).to.eq(200)
+        })
+    })
 });

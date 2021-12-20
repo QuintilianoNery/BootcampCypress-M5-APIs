@@ -1,3 +1,9 @@
 {
-    "baseUrl": "http://treinamento-api.herokuapp.com"
+  "baseUrl": "http://treinamento-api.herokuapp.com",
+  "experimentalStudio": true,
+  "video": false,
+  "viewportWidth": 1600,
+  "viewportHeight": 900,
+  "chromeWebSecurity": false,
+  "projectId": "9ir1ce"
 }

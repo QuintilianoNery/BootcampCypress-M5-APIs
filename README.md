@@ -4,3 +4,8 @@
 
 
 
+Utilizado para validar contrados de API
+npm  install -D bahmutov/cy-spok
+
+
+

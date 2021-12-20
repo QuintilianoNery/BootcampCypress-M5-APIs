@@ -4,7 +4,7 @@ import req from '../../support/api/requests'
 import assertiosn from '../../support/api/assertions'
 
 context('Ping', () => {
-    it('GET Healthcheck', () => {
+    it('Validar que a aplicação está Online', () => {
         //GET http://treinamento-api.herokuapp.com/ping
         //Validação Healthcheck para status 201 da API
         //request

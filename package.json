@@ -1,10 +1,11 @@
 {
-  "name": "BootcampCypress-M5-APIs",
+  "name": "bootcampcypress-m5-apis",
   "version": "1.0.0",
   "description": "<h1 align=\"center\">Projeto: BootcampCypress-M5-APIs </h1>",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy:open": "npx cypress open"
   },
   "repository": {
     "type": "git",
@@ -19,5 +20,8 @@
   "homepage": "https://github.com/QuintilianoNery/BootcampCypress-M5-APIs#readme",
   "dependencies": {
     "cypress": "^5.3.0"
+  },
+  "devDependencies": {
+    "cy-spok": "github:bahmutov/cy-spok"
   }
 }

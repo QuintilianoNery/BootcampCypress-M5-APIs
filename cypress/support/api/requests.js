@@ -5,8 +5,15 @@ class Requests {
         return cy.request({
             method: 'GET',
             url: 'ping'
-        });
-    };
-};
+        })
+    }
+
+    getBooking() {
+        return cy.request({
+            method: 'GET',
+            url: `booking/1`
+        })
+    }
+}
 
 export default new Requests();

@@ -1,8 +1,28 @@
 /// <reference types="cypress" />
 
 import spok from 'cy-spok'
+import req from '../../support/api/requests'
+import schemas from '../../support/api/schemas'
+import assertions from '../../support/api/assertions'
 
-context('Booking', () => {
+context('Validação do endpoint - Com abstração de dados', () => {
+    it('validar contrato do GET Booking', () => {
+        
+        req.getBooking()
+        .then(getBookingResponse => {
+            
+        cy.log(getBookingResponse.status)
+        assertions
+        .validateContractOf(
+            getBookingResponse,schemas.getBookingSchema())
+        })
+    });
+});
+
+
+//----------------------------------------------------------------------------------------------------------------------
+
+context('Validação do endpoint - Sem Abstração de dados', () => {
     it('validar contrato do GET Booking', () => {
         //Validando retorno do GET Booking
         cy.request({

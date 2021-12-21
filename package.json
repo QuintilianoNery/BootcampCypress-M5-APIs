@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "cy:open": "npx cypress open"
+    "cy:open": "npx cypress open",
+    "cy:run": "npx cypress run"
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
     "cypress": "^5.3.0"
   },
   "devDependencies": {
-    "cy-spok": "github:bahmutov/cy-spok"
+    "cy-spok": "github:bahmutov/cy-spok",
+    "leite": "^0.2.0"
   }
 }

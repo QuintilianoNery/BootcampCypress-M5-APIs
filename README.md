@@ -24,6 +24,7 @@ npm init -y
 npm install --yes
 npm install cypress@5.3.0 --save-dev
 npm  install -D bahmutov/cy-spok
+npm  install -D leite
 ```
 
 ### Comandos para iniciar o Cypress :gear:

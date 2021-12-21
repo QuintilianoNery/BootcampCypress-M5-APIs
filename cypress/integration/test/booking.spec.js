@@ -26,21 +26,33 @@ context('Validação do endpoint - Com abstração de dados', () => {
         req.postBooking()
             .then(postBookingResponse => {
                 assertions.shouldHaveStatus(postBookingResponse, 200)
-                expect(postBookingResponse.body.bookingid, 'O id da reserva não pode ser nulo').to.not.be.null;
-                cy.log(postBookingResponse.body.bookingid, 'Log da resposta')
-                expect(postBookingResponse.body.bookingid, 'O id da reserva não pode ser 0').to.not.be.eq(0);
-                expect(postBookingResponse.headers, 'Validando os valores do headers').to.include({
-                    server: 'Cowboy',
-                    connection: 'keep-alive',
-                    via: '1.1 vegur',
-                    'x-powered-by': 'Express'
-                })
-                expect(postBookingResponse.headers, 'Validando o tipo do arquivo').to.include({
-                    'content-type': 'application/json; charset=utf-8'
-                })
-                expect(postBookingResponse.duration, 'A resposta deve ser menor que 900ms').to.be.lessThan(900);
+                assertions.shouldbookingIdCreatedTrue(postBookingResponse)
+                assertions.shouldHaveDefaultHeader(postBookingResponse)
+                assertions.shouldHaveContentTypeApp(postBookingResponse)
+                assertions.shouldDurationBeFast(postBookingResponse)
             })
     })
+
+    //alterar uma reserva sem token => 403
+    //alterar uma reserva com token inválido => 403
+    //Alterar uma reserva com token válido => 200
+
+    it('Tentar alterar uma reserva sem token', () => {
+        cy.request({
+            method: 'PUT',
+            url: 'booking/?',
+            bory: {
+                "firstname": "qtq",
+                "lastname": "defanini",
+                "totalprice": 111,
+                "depositpaid": true,
+                "bookingdates": {
+                    "checkin": "2020-01-01",
+                    "checkout": "2020-01-02"
+                }
+            }
+        });
+    });
 });
 
 

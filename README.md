@@ -39,3 +39,16 @@ npm  install -D bahmutov/cy-spok
 ```shell
    npx cypress run
 ```
+
+#### API utilizada nos testes
+```
+url padrão:http://treinamento-api.herokuapp.com
+ping: https://treinamento-api.herokuapp.com/ping
+POST:https://treinamento-api.herokuapp.com/booking
+GET:https://treinamento-api.herokuapp.com/booking/{ID}
+GET LISTA: https://treinamento-api.herokuapp.com/booking
+GET NOME: https://treinamento-api.herokuapp.com/booking?firstname={NOME}
+GET DATA: https://treinamento-api.herokuapp.com/booking?checkin={AAAA-MM-DD}
+PUT: https://treinamento-api.herokuapp.com/booking/{id}
+DELETE:https://treinamento-api.herokuapp.com/booking/{id}
+```

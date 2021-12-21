@@ -10,15 +10,21 @@ import assertions from '../../support/api/assertions'
 //Validação do contrato do endpoint (bory)
 //Validação do contrato do endpoint (headers)
 context('Validação do endpoint - Com abstração de dados', () => {
+    //Garantir que o token seja gerado sempre antes de todos os testes
+
+    //56:26 ver o motivo do erro
+    before(() => {
+        req.doAuth()
+    });
+
+
     it('validar contrato do GET Booking', () => {
 
         req.getBooking()
             .then(getBookingResponse => {
 
                 cy.log(getBookingResponse.status)
-                assertions
-                    .validateContractOf(
-                        getBookingResponse, schemas.getBookingSchema())
+                assertions.validateContractOf(getBookingResponse, schemas.getBookingSchema())
             })
     });
 
@@ -38,27 +44,34 @@ context('Validação do endpoint - Com abstração de dados', () => {
     //Alterar uma reserva com token válido => 200
 
     it('Tentar alterar uma reserva sem token', () => {
-        cy.request({
-            method: 'PUT',
-            url: 'booking/?',
-            bory: {
-                "firstname": "qtq",
-                "lastname": "defanini",
-                "totalprice": 111,
-                "depositpaid": true,
-                "bookingdates": {
-                    "checkin": "2020-01-01",
-                    "checkout": "2020-01-02"
-                }
-            }
-        });
+        req.postBooking().then(postBookingResponse => {
+            req.atualizarReservaSemToken(postBookingResponse)
+                .then(putBookingResponse => {
+                    assertions.shouldHaveStatus(putBookingResponse, 403)
+                    assertions.shouldHaveDefaultHeader(putBookingResponse)
+                    assertions.shouldHaveContentTypeText(putBookingResponse)
+                    assertions.shouldDurationBeFast(putBookingResponse)
+                })
+        })
+    });
+
+    it.only('Alterar uma reserva com sucesso', () => {
+        req.postBooking().then(postBookingResponse => {
+            req.atualizarReserva(postBookingResponse)
+                .then(putBookingResponse => {
+                    assertions.shouldHaveStatus(putBookingResponse, 200)
+                    assertions.shouldHaveDefaultHeader(putBookingResponse)
+                    assertions.shouldHaveContentTypeText(putBookingResponse)
+                    assertions.shouldDurationBeFast(putBookingResponse)
+                })
+        })
     });
 });
 
 
 //----------------------------------------------------------------------------------------------------------------------
 
-context('Validação do endpoint - Sem Abstração de dados', () => {
+context.skip('Validação do endpoint - Sem Abstração de dados', () => {
     it('validar contrato do GET Booking', () => {
         //Validando retorno do GET Booking
         cy.request({
@@ -124,4 +137,30 @@ context('Validação do endpoint - Sem Abstração de dados', () => {
             expect(postBookingResponse.duration, 'A resposta deve ser menor que 900ms').to.be.lessThan(900);
         })
     })
+    it('Tentar alterar uma reserva sem token', () => {
+        req.postBooking().then(postBookingResponse => {
+            const id = postBookingResponse.body.bookingid;
+
+            cy.request({
+                method: 'PUT',
+                url: `booking/${id}`,
+                bory: {
+                    "firstname": leite.pessoa.nome(),
+                    "lastname": leite.pessoa.sobrenome(),
+                    "totalprice": 111,
+                    "depositpaid": true,
+                    "bookingdates": {
+                        "checkin": "2020-01-01",
+                        "checkout": "2020-01-02"
+                    }
+                },
+                failOnStatusCode: false
+            }).then(putBookingResponse => {
+                assertions.shouldHaveStatus(putBookingResponse, 403)
+                assertions.shouldHaveDefaultHeader(putBookingResponse)
+                assertions.shouldHaveContentTypeText(putBookingResponse)
+            })
+        })
+    });
+
 });

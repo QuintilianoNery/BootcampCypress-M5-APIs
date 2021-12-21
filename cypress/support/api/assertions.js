@@ -27,8 +27,15 @@ class Assertions {
     }
 
     shouldHaveContentTypeApp(response) {
-        expect(response.headers, 'Validando o tipo do arquivo').to.include({
+        expect(response.headers, 'Tipo arquivo application/json').to.include({
             'content-type': 'application/json; charset=utf-8'
+
+        })
+    }
+
+    shouldHaveContentTypeText(response) {
+        expect(response.headers, 'Tipo arquivo text/json').to.include({
+            'content-type': 'text/plain; charset=utf-8'
         })
     }
 

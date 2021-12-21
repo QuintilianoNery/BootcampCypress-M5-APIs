@@ -23,6 +23,7 @@
     "cypress": "^5.3.0"
   },
   "devDependencies": {
+    "chance": "^1.1.8",
     "cy-spok": "github:bahmutov/cy-spok",
     "leite": "^0.2.0"
   }

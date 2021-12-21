@@ -5,6 +5,10 @@ import req from '../../support/api/requests'
 import schemas from '../../support/api/schemas'
 import assertions from '../../support/api/assertions'
 
+
+//Validação do healthcheck
+//Validação do contrato do endpoint (bory)
+//Validação do contrato do endpoint (headers)
 context('Validação do endpoint - Com abstração de dados', () => {
     it('validar contrato do GET Booking', () => {
 
@@ -22,14 +26,19 @@ context('Validação do endpoint - Com abstração de dados', () => {
         req.postBooking()
             .then(postBookingResponse => {
                 assertions.shouldHaveStatus(postBookingResponse, 200)
-                expect(postBookingResponse.body.bookingid).to.not.be.null;
-                expect(postBookingResponse.body.bookingid).to.not.be.eq(0);
-                cy.log(postBookingResponse.body.bookingid)
-                expect(postBookingResponse.headers).to.include({
+                expect(postBookingResponse.body.bookingid, 'O id da reserva não pode ser nulo').to.not.be.null;
+                cy.log(postBookingResponse.body.bookingid, 'Log da resposta')
+                expect(postBookingResponse.body.bookingid, 'O id da reserva não pode ser 0').to.not.be.eq(0);
+                expect(postBookingResponse.headers, 'Validando os valores do headers').to.include({
                     server: 'Cowboy',
                     connection: 'keep-alive',
-                    via: '1.1 vegur'
+                    via: '1.1 vegur',
+                    'x-powered-by': 'Express'
                 })
+                expect(postBookingResponse.headers, 'Validando o tipo do arquivo').to.include({
+                    'content-type': 'application/json; charset=utf-8'
+                })
+                expect(postBookingResponse.duration, 'A resposta deve ser menor que 900ms').to.be.lessThan(900);
             })
     })
 });
@@ -84,9 +93,23 @@ context('Validação do endpoint - Sem Abstração de dados', () => {
                 "additionalneeds": "Breakfast"
             }
         }).then(postBookingResponse => {
+            //Validando que o registro goi inserido com sucesso
             expect(postBookingResponse.status).to.eq(200)
-            expect(postBookingResponse.body.bookingid).to.not.be.null;
-            cy.log(postBookingResponse.body.bookingid)
+            expect(postBookingResponse.body.bookingid, 'O id da reserva não pode ser nulo').to.not.be.null;
+            cy.log(postBookingResponse.body.bookingid, 'Log da resposta')
+            expect(postBookingResponse.body.bookingid, 'O id da reserva não pode ser 0').to.not.be.eq(0);
+            //validando o header da resposta
+            expect(postBookingResponse.headers, 'Validando os valores do headers').to.include({
+                server: 'Cowboy',
+                connection: 'keep-alive',
+                via: '1.1 vegur',
+                'x-powered-by': 'Express'
+            })
+            expect(postBookingResponse.headers, 'Validando o tipo do arquivo').to.include({
+                'content-type': 'application/json; charset=utf-8'
+            })
+            //validar tempo para execução da requisição
+            expect(postBookingResponse.duration, 'A resposta deve ser menor que 900ms').to.be.lessThan(900);
         })
     })
 });

@@ -1,6 +1,6 @@
 class Assertions {
     shouldHaveStatus(response, status) {
-        expect(response.status).to.equal(status)
+        expect(response.status, `status is ${status}`).to.equal(status)
         
     }
 

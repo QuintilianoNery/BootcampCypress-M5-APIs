@@ -62,7 +62,6 @@ class Requests {
 
     atualizarReserva(response) {
         const id = response.body.bookingid
-
         return cy.request({
             method: 'PUT',
             url: `booking/${id}`,
@@ -116,6 +115,39 @@ class Requests {
             Cypress.env('token', token);
             cy.log(token)
         })
+    }
+
+    deleteBooking(response) {
+        const id = response.body.bookingid
+        return cy.request({
+            method: 'DELETE',
+            url: `booking/${id}`,
+            headers: {
+                cookie: `token=${Cypress.env('token')}`
+            },
+            failOnStatusCode: false
+        });
+    }
+
+    deleteBookingIsNotToken(response) {
+        const id = response.body.bookingid
+        return cy.request({
+            method: 'DELETE',
+            url: `booking/${id}`,
+            failOnStatusCode: false
+        });
+    }
+
+    deleteBookingTokingInvalido(response) {
+        const id = response.body.bookingid
+        return cy.request({
+            method: 'DELETE',
+            url: `booking/${id}`,
+            headers: {
+                cookie: "token=invalidtoken"
+            },
+            failOnStatusCode: false
+        });
     }
 }
 

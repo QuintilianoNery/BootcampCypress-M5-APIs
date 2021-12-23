@@ -106,4 +106,20 @@ context('Validação do endpoint - Sem Abstração de dados', () => {
         })
     });
 
+    it('Teste com body.token ', () => {
+        cy.request({
+            method: 'POST',
+            url: 'auth',
+            body: {
+                "username": "admin",
+                "password": "password123"
+            }
+        }).then(authResponse => {
+            const token = authResponse.body.token;
+            Cypress.env('token', token);
+            cy.log(token)
+
+        })
+    });
+
 });

@@ -17,7 +17,7 @@ context('Validação do endpoint - Com abstração de dados', () => {
 
 
 
-    it('validar contrato do GET Booking', () => {
+    it('GET - Validar contrato - Booking', () => {
 
         req.getBooking()
             .then(getBookingResponse => {
@@ -42,7 +42,7 @@ context('Validação do endpoint - Com abstração de dados', () => {
     //alterar uma reserva com token inválido => 403
     //Alterar uma reserva com token válido => 200
 
-    it('Tentar alterar uma reserva sem token', () => {
+    it('POST - Tentar alterar uma reserva sem token', () => {
         req.postBooking().then(postBookingResponse => {
             req.atualizarReservaSemToken(postBookingResponse)
                 .then(putBookingResponse => {
@@ -54,9 +54,7 @@ context('Validação do endpoint - Com abstração de dados', () => {
         })
     });
 
-    it('Alterar uma reserva com sucesso', () => {
-
-
+    it('PUT - Alterar uma reserva com sucesso', () => {
         req.postBooking().then(postBookingResponse => {
             req.atualizarReserva(postBookingResponse)
                 .then(putBookingResponse => {
@@ -69,4 +67,43 @@ context('Validação do endpoint - Com abstração de dados', () => {
         })
     });
 
+    //Tentar excluir uma reserva sem token
+    //Tentar excluir uma reserva com token inválido
+    //Excluir uma reserva com sucesso
+    it('DELETE - Excluir uma reserva com sucesso', () => {
+        req.postBooking().then(postBookingResponse => {
+            req.deleteBooking(postBookingResponse).then(deleteBookingResponse => {
+                assertions.shouldHaveStatus(deleteBookingResponse, 201)
+                assertions.shouldHaveDefaultHeader(deleteBookingResponse)
+                assertions.shouldHaveContentTypeText(deleteBookingResponse)
+                assertions.shouldDurationBeFast(deleteBookingResponse)
+            })
+        })
+    });
+
+    it('DELETE - Tentar excluir uma reserva sem token', () => {
+        req.postBooking().then(postBookingResponse => {
+            req.deleteBookingIsNotToken(postBookingResponse).then(deleteBookingResponse => {
+                assertions.shouldHaveStatus(deleteBookingResponse, 403)
+                assertions.shouldHaveDefaultHeader(deleteBookingResponse)
+                assertions.shouldHaveContentTypeText(deleteBookingResponse)
+                assertions.shouldDurationBeFast(deleteBookingResponse)
+            })
+        })
+    });
+
+    it('DELETE - Tentar excluir uma reserva com token inválido', () => {
+        req.postBooking().then(postBookingResponse => {
+            req.deleteBookingTokingInvalido(postBookingResponse).then(deleteBookingResponse => {
+                assertions.shouldHaveStatus(deleteBookingResponse, 403)
+                assertions.shouldHaveDefaultHeader(deleteBookingResponse)
+                assertions.shouldHaveContentTypeText(deleteBookingResponse)
+                assertions.shouldDurationBeFast(deleteBookingResponse)
+            })
+        })
+    });
+
+    it('DELET - Tentar excluirr uma reserva inesistente', () => {
+        
+    });
 });

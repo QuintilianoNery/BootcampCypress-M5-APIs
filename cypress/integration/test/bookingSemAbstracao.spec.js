@@ -2,76 +2,19 @@
 
 import spok from 'cy-spok'
 import req from '../../support/api/requests'
-import schemas from '../../support/api/schemas'
 import assertions from '../../support/api/assertions'
 
+const Leite = require('leite')
+const leite = new Leite()
+
+const nome = leite.pessoa.nome()
+const sobrenome = leite.pessoa.sobrenome()
 
 //Validação do healthcheck
 //Validação do contrato do endpoint (bory)
 //Validação do contrato do endpoint (headers)
-context('Validação do endpoint - Com abstração de dados', () => {
-    //Garantir que o token seja gerado sempre antes de todos os testes
 
-    //56:26 ver o motivo do erro
-    before(() => {
-        req.doAuth()
-    });
-
-
-    it('validar contrato do GET Booking', () => {
-
-        req.getBooking()
-            .then(getBookingResponse => {
-
-                cy.log(getBookingResponse.status)
-                assertions.validateContractOf(getBookingResponse, schemas.getBookingSchema())
-            })
-    });
-
-    it('POST - Criar uma reserva com sucesso', () => {
-        req.postBooking()
-            .then(postBookingResponse => {
-                assertions.shouldHaveStatus(postBookingResponse, 200)
-                assertions.shouldbookingIdCreatedTrue(postBookingResponse)
-                assertions.shouldHaveDefaultHeader(postBookingResponse)
-                assertions.shouldHaveContentTypeApp(postBookingResponse)
-                assertions.shouldDurationBeFast(postBookingResponse)
-            })
-    })
-
-    //alterar uma reserva sem token => 403
-    //alterar uma reserva com token inválido => 403
-    //Alterar uma reserva com token válido => 200
-
-    it('Tentar alterar uma reserva sem token', () => {
-        req.postBooking().then(postBookingResponse => {
-            req.atualizarReservaSemToken(postBookingResponse)
-                .then(putBookingResponse => {
-                    assertions.shouldHaveStatus(putBookingResponse, 403)
-                    assertions.shouldHaveDefaultHeader(putBookingResponse)
-                    assertions.shouldHaveContentTypeText(putBookingResponse)
-                    assertions.shouldDurationBeFast(putBookingResponse)
-                })
-        })
-    });
-
-    it.only('Alterar uma reserva com sucesso', () => {
-        req.postBooking().then(postBookingResponse => {
-            req.atualizarReserva(postBookingResponse)
-                .then(putBookingResponse => {
-                    assertions.shouldHaveStatus(putBookingResponse, 200)
-                    assertions.shouldHaveDefaultHeader(putBookingResponse)
-                    assertions.shouldHaveContentTypeText(putBookingResponse)
-                    assertions.shouldDurationBeFast(putBookingResponse)
-                })
-        })
-    });
-});
-
-
-//----------------------------------------------------------------------------------------------------------------------
-
-context.skip('Validação do endpoint - Sem Abstração de dados', () => {
+context('Validação do endpoint - Sem Abstração de dados', () => {
     it('validar contrato do GET Booking', () => {
         //Validando retorno do GET Booking
         cy.request({
@@ -107,8 +50,8 @@ context.skip('Validação do endpoint - Sem Abstração de dados', () => {
             url: 'booking',
             body:
             {
-                "firstname": "Quin",
-                "lastname": "defanini",
+                "firstname": `${nome}`,
+                "lastname": `${sobrenome}`,
                 "totalprice": 111,
                 "depositpaid": true,
                 "bookingdates": {
@@ -145,8 +88,8 @@ context.skip('Validação do endpoint - Sem Abstração de dados', () => {
                 method: 'PUT',
                 url: `booking/${id}`,
                 bory: {
-                    "firstname": leite.pessoa.nome(),
-                    "lastname": leite.pessoa.sobrenome(),
+                    "firstname": `${nome}`,
+                    "lastname": `${sobrenome}`,	
                     "totalprice": 111,
                     "depositpaid": true,
                     "bookingdates": {

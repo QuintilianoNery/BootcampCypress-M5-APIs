@@ -149,6 +149,18 @@ class Requests {
             failOnStatusCode: false
         });
     }
+
+    deleteBookingIdInexistente(response) {
+        const id = response.body.bookingid
+        return cy.request({
+            method: 'DELETE',
+            url: 'booking/32123132212',
+            headers: {
+                cookie: `token=${Cypress.env('token')}`
+            },
+            failOnStatusCode: false
+        });
+    }
 }
 
 export default new Requests();

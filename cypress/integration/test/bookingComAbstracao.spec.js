@@ -104,6 +104,14 @@ context('Validação do endpoint - Com abstração de dados', () => {
     });
 
     it('DELET - Tentar excluirr uma reserva inesistente', () => {
+        req.postBooking().then(postBookingResponse => {
+            req.deleteBookingIdInexistente(postBookingResponse).then(deleteBookingResponse => {
+                assertions.shouldHaveStatus(deleteBookingResponse, 405)
+                assertions.shouldHaveDefaultHeader(deleteBookingResponse)
+                assertions.shouldHaveContentTypeText(deleteBookingResponse)
+                assertions.shouldDurationBeFast(deleteBookingResponse)
+            })
+        })
         
     });
 });

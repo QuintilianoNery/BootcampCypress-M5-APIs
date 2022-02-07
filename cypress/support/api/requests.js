@@ -82,6 +82,8 @@ class Requests {
         })
     }
 
+
+    //----------------------------------------------------------------------------------------------------------------------
     postAuth(response) {
         return cy.request({
             method: 'POST',
@@ -96,10 +98,15 @@ class Requests {
 
     doAuth() {
         this.postAuth().then(authResponse => {
-            const token = authResponse.bory.token;
-            Cypress.env('token', token);
+            const token = authResponse.body.token;
+            Cypress.env('token', token)
         })
     }
+
+    //----------------------------------------------------------------------------------------------------------------------
+
+
+
 
     //Token de autorização
     tokenAuth() {

@@ -8,6 +8,7 @@ import assertions from '../../support/api/assertions'
 //Validação do healthcheck
 //Validação do contrato do endpoint (bory)
 //Validação do contrato do endpoint (headers)
+
 context('Validação do endpoint - Com abstração de dados', () => {
     //Garantir que o token seja gerado sempre antes de todos os testes
 

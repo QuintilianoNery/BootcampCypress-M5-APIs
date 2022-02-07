@@ -41,7 +41,7 @@ npm  install -D leite
    npx cypress run
 ```
 
-#### API utilizada nos testes
+#### Endpoints utilizados nos testes
 ```
 url padrão:http://treinamento-api.herokuapp.com
 ping: https://treinamento-api.herokuapp.com/ping
